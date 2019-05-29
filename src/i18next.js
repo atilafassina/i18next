@@ -187,6 +187,10 @@ class I18n extends EventEmitter {
   }
 
   use(module) {
+    if (Array.isArray(module)) {
+      return module.reduce((i18nInstance, middleware) => i18nInstance.use(middleware), this)
+    }
+
     if (module.type === 'backend') {
       this.modules.backend = module;
     }
